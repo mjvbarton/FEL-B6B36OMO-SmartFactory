@@ -1,0 +1,19 @@
+# Enterprice architect model
+*.EAP
+*.zargo
+*.zargo~
+*.ldb
+
+# Exported diagrams
+# *.png
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+log/
+target/
+/cv3_assignment/nbproject/
+/hw/hw02/nbproject/
