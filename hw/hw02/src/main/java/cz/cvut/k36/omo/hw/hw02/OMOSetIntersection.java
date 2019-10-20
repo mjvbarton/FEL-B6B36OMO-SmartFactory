@@ -13,4 +13,19 @@ public class OMOSetIntersection implements OMOSetView{
     OMOSetIntersection(OMOSetView setA, OMOSetView setB){
         
     }
+
+    @Override
+    public boolean contains(int element) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public int[] toArray() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public OMOSetView copy() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
