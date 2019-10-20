@@ -26,16 +26,24 @@ public class OMOSet extends OMOSetBase implements OMOSetView{
 
     @Override
     public int[] toArray() {
-        int[] array = new int[]{};
+        int[] array = new int[set.size()];
+        int cursor = 0;
         for(Integer element : set){
-            array.
+            array[cursor] = element;
+            cursor++;
         }
+        return array;
     }
 
     @Override
     public OMOSetView copy() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        OMOSetBase instance = new OMOSet();
+        for(Integer element : set){
+            int value = element;
+            instance.add(value);
+        }
+        return instance;
     }
-    // metody rozhraní OMOSetView a OMOSetBase
+    
     
 }
