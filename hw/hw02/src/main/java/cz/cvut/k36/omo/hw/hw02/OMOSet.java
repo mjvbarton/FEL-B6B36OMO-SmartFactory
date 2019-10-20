@@ -7,7 +7,7 @@ import java.util.HashSet;
  * @author Matej
  */
 public class OMOSet extends OMOSetBase implements OMOSetView{
-    private final HashSet<Integer> set = new HashSet();
+    protected final HashSet<Integer> set = new HashSet();
     
     @Override
     public void add(int element) {
