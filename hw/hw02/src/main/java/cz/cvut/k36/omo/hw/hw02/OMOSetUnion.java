@@ -25,15 +25,20 @@ public class OMOSetUnion implements OMOSetView{
 
     @Override
     public int[] toArray() {
-        int[] arrA = setA.toArray();
-        int[] arrB = setB.toArray();
-        int[] result = new int[arrA.length + arrB.length];
-        for(int i = 0; i < arrA.length; i++){
-            result[i] = arrA[i];
+        OMOSetIntersection intersect = new OMOSetIntersection(setA, setB);
+        OMOSetComplement compl = new OMOSetComplement(setA, setB);
+        int[] arrIntersect = intersect.toArray();
+        int[] arrCompl = compl.toArray();
+        int[] result = new int[arrIntersect.length + arrCompl.length];
+        
+        for(int i = 0; i < arrIntersect.length; i++){
+            result[i] = arrIntersect[i];
         }
-        for(int i = 0; i < arrB.length; i++){
-            result[arrA.length + i] = arrB.length;
+        
+        for(int i = 0; i < arrCompl.length; i++){
+            result[arrIntersect.length + i] = arrCompl[i];
         }
+        
         return result;
     }
 
