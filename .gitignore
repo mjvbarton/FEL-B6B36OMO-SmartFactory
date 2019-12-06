@@ -5,7 +5,8 @@
 *.ldb
 
 # Exported diagrams
-# *.png
+*.png
+!diagrams/*.png
 
 # Intellij
 .idea/
@@ -15,5 +16,3 @@
 # Maven
 log/
 target/
-/cv3_assignment/nbproject/
-/hw/hw02/nbproject/
