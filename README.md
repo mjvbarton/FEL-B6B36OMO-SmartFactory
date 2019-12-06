@@ -19,3 +19,5 @@ Po dohodě se cvičícím byly soubory ze cvičení a z domácích úkolů pusho
 #### Odkazy na zdroje
 * **[cvičení](https://gitlab.fel.cvut.cz/bartom47/b191_b6b36omo/tree/master)**
 * **[domácí úkoly](https://gitlab.fel.cvut.cz/bartom47/b191_b6b36omo/tree/homeworks)**
+
+* Pokud nemáte přístup tam, kde byste ho měli mít, neváhejte mne kontaktovat.*
