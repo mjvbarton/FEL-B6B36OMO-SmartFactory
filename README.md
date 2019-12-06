@@ -6,6 +6,8 @@
 
 
 ### Struktura repozitáře
+|                   |                                                                   |
+|-------------------|-------------------------------------------------------------------|
 |    `/src`         |   Zdrojový kód projektu a testy. Implementuje strukturu Mavenu.   |
 |    `/diagrams`    |   Vygenerované UML diagramy jako soubory `*.png`                  |
 |   `/docs`         |   Dokumentace k projektu, javadoc.                                |
