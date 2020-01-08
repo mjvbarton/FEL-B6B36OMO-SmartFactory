@@ -23,7 +23,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.runners.MockitoJUnitRunner;
 
 /**
- * Unit test for {@link EventPropagator} event mechanism
+ * Unit test for {@link EventPropagator} event mechanism implemented in {@link HierarchyNode}
  * @author Matej
  */
 @RunWith(MockitoJUnitRunner.class)
