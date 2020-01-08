@@ -28,7 +28,7 @@ public final class Tick extends PropagatableEvent{
      * @param sender sender of the event
      * @param firstReciever first reciever to handle event
      */
-    public void dispatch(EventHandler sender, EventHandler firstReciever){
+    public static void dispatch(EventHandler sender, EventHandler firstReciever){
         try{
             tickCount++;
             final Tick dispatched = new Tick(sender, tickCount);
