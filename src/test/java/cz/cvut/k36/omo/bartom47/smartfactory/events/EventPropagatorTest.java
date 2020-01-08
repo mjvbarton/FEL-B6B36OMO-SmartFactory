@@ -5,6 +5,7 @@
  */
 package cz.cvut.k36.omo.bartom47.smartfactory.events;
 
+import cz.cvut.k36.omo.bartom47.smartfactory.HierarchyNode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 public class EventPropagatorTest {
     
     @Mock(answer = Answers.CALLS_REAL_METHODS)
-    public EventPropagator node;
+    public HierarchyNode node;
     
     @Mock(answer = Answers.CALLS_REAL_METHODS)
     public PropagatableEvent propagatableEvent;
