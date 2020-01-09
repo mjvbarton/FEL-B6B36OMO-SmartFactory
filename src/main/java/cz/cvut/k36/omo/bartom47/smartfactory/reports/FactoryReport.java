@@ -12,7 +12,7 @@ import org.slf4j.LoggerFactory;
  * @param <E>
  */
 public abstract class FactoryReport<E extends DataModelNode> {
-    private static String RESOURCES_LOCATION_PATH = "src/main/resources/reports";
+    private static String RESOURCES_LOCATION_PATH = "src/main/resources/reports/";
     private static Logger LOG = LoggerFactory.getLogger(FactoryReport.class);
     private final String resourcePath;
     
