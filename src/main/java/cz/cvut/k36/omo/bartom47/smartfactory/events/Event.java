@@ -5,12 +5,11 @@
  */
 package cz.cvut.k36.omo.bartom47.smartfactory.events;
 
-import cz.cvut.k36.omo.bartom47.smartfactory.HierarchyNode;
-
 /**
  *
  * @author Matej
  */
+// TODO: Add Javadoc.
 public abstract class Event {
     protected final String name;
     protected final EventHandler sender;    

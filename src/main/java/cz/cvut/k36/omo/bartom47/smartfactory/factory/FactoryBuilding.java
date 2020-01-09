@@ -4,6 +4,7 @@ import cz.cvut.k36.omo.bartom47.smartfactory.assembly.Assembly;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.FactoryBuildingConfiguration;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.FactoryBuildingConsumption;
 import cz.cvut.k36.omo.bartom47.smartfactory.events.Event;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -15,16 +16,14 @@ import org.slf4j.LoggerFactory;
  * Represents a building of the factory.
  * @author Matej
  */
-// TODO: Move factory to a package cz.cvut.k36.omo.bartom47.smartfactory.factory.building
 public abstract class FactoryBuilding 
         extends HierarchyNode<FactoryBuildingConfiguration, FactoryBuildingConsumption>{
     private static Logger LOG = LoggerFactory.getLogger(FactoryBuilding.class);
     
     private final Set<Assembly> assemblies;    
     private final String name;
-    private final Factory factory;
-    private final FactoryBuildingConfiguration configuration;
-    private final FactoryBuildingConsumption consumption;
+    private final Factory factory;   
+    //private final Maintenance maintenance;
 
     /**
      * Creates new factory building
@@ -36,16 +35,13 @@ public abstract class FactoryBuilding
      */
     protected FactoryBuilding(Set<Assembly> assemblies, String name, Factory factory, 
             FactoryBuildingConfiguration configuration, FactoryBuildingConsumption consumption) {
+        super(configuration, consumption);
         Objects.requireNonNull(assemblies);
         Objects.requireNonNull(name);
-        Objects.requireNonNull(factory);
-        Objects.requireNonNull(configuration);
-        Objects.requireNonNull(consumption);        
+        Objects.requireNonNull(factory);                
         this.assemblies = assemblies;
         this.name = name;
-        this.factory = factory;
-        this.configuration = configuration;
-        this.consumption = consumption;
+        this.factory = factory;        
     }    
           
     @Override
@@ -62,18 +58,8 @@ public abstract class FactoryBuilding
 
     @Override
     public void logEvent(Event e) {
-        LOG.debug(this + " captured event " + e);
-        eventHistory.add(e);
-    }
-
-    @Override
-    public FactoryBuildingConfiguration getConfiguration() {
-        return configuration;
-    }
-
-    @Override
-    public FactoryBuildingConsumption getConsumption() {
-        return consumption;
+        super.logEvent(e);
+        LOG.debug(this + " captured event " + e);        
     }
 
     /**
@@ -83,5 +69,20 @@ public abstract class FactoryBuilding
     public String getName() {
         return name;
     }
-               
+
+    /**
+     * Returns the parent factory of the building
+     * @return the parent factory
+     */
+    public Factory getFactory() {
+        return factory;
+    }
+
+    /**
+     * Returns the assemblies in the building.
+     * @return assemblies in the building
+     */
+    public Set<Assembly> getAssemblies() {
+        return new HashSet(assemblies);
+    }    
 }

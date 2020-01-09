@@ -4,6 +4,7 @@ import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.Configura
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.ConfigurationDataContainer;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.ConsumptionData;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.ConsumptionDataContainer;
+import cz.cvut.k36.omo.bartom47.smartfactory.events.EventLog;
 import cz.cvut.k36.omo.bartom47.smartfactory.events.Event;
 import cz.cvut.k36.omo.bartom47.smartfactory.events.EventPropagator;
 import cz.cvut.k36.omo.bartom47.smartfactory.events.PropagatableEvent;
@@ -19,17 +20,24 @@ import java.util.Queue;
  */
 public abstract class HierarchyNode<K extends ConfigurationData, T extends ConsumptionData> implements EventPropagator, 
         ConfigurationDataContainer<K>, 
-            ConsumptionDataContainer<T>{    
+            ConsumptionDataContainer<T>, EventLog{    
+    private final K configuration;
+    private final T consumption;
+    
     /**
      * Event history. Elements should be added directly via method 
      * {@link #logEvent(Event) }.
      * For creating reports based on event history use 
      * {@link #getHistory()}
      */
-    protected final Queue<Event> eventHistory;
+    private final Queue<Event> eventHistory;
 
-    protected HierarchyNode() {
+    protected HierarchyNode(K configuration, T consumption) {
         this.eventHistory = new LinkedList();
+        this.configuration = configuration;
+        configuration.setParent(this);
+        this.consumption = consumption; 
+        consumption.setParent(this);
     }            
     
     /**
@@ -48,13 +56,25 @@ public abstract class HierarchyNode<K extends ConfigurationData, T extends Consu
         handle((Event) e);
         propagate(e);
     }   
-    
-    /**
-     * Gets copy of event history. Elements to history should be added
-     * via directly {@link #eventHistory} by method {@link #logEvent(Event) }
-     * @return queue of events
-     */
+        
+    @Override
     public Queue<Event> getHistory(){
         return new LinkedList(eventHistory);
     }
+
+    @Override
+    public K getConfiguration() {
+        return configuration;
+    }
+
+    @Override
+    public T getConsumption() {
+        return consumption;
+    }   
+
+    @Override
+    public void logEvent(Event e) {
+        eventHistory.add(e);
+    }
+    
 }

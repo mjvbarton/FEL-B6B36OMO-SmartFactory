@@ -1,5 +1,7 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.consumables;
 
+import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.ConsumableConsumption;
+import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.ConsumptionDataContainer;
 import java.util.Objects;
 
 /**
@@ -7,7 +9,7 @@ import java.util.Objects;
  * @author Matej
  */
 // TODO: Add javadoc for getters
-public abstract class Consumable {
+public abstract class Consumable implements ConsumptionDataContainer<ConsumableConsumption>{
     private final double unitCost;
     private final String name;
     private final String unitName;
@@ -53,4 +55,9 @@ public abstract class Consumable {
     public String getCostCurrencyShortcut() {
         return costCurrencyShortcut;
     }        
+
+    @Override
+    public ConsumableConsumption getConsumption() {
+        return new ConsumableConsumption(this);
+    }
 }

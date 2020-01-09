@@ -1,27 +1,35 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration;
 
-import cz.cvut.k36.omo.bartom47.smartfactory.DataModelNode;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.DataModelNode;
 import java.util.Objects;
 
 /**
  * Represents node in configuration data model.
  * @author Matej
+ * @param <E> type of configuration data container
  */
-public abstract class ConfigurationData implements DataModelNode<ConfigurationDataContainer> {
-    private final ConfigurationDataContainer parentNode;
+public abstract class ConfigurationData<E extends ConfigurationDataContainer> implements DataModelNode<E> {
+    private E parentNode;
+    private boolean isParentSet = false;
 
     /**
-     * Creates configuration data with parent node
-     * @param parentNode 
+     * Creates configuration data with parent node 
      */
-    protected ConfigurationData(ConfigurationDataContainer parentNode) {
-        Objects.requireNonNull(parentNode);
-        this.parentNode = parentNode;
+    public ConfigurationData() {
+        
     }        
     
     @Override
-    public ConfigurationDataContainer getParent() {
+    public E getParent() {
         return parentNode;
+    }
+    
+    public void setParent(E parentNode){
+        if(!isParentSet){
+            this.parentNode = parentNode;
+            isParentSet = true;
+        }
+            
     }
     
 }

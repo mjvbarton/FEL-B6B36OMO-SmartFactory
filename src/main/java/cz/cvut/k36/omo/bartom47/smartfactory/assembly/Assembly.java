@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -28,19 +29,16 @@ public class Assembly extends HierarchyNode<AssemblyConfiguration, AssemblyConsu
     private final FactoryBuilding factoryBuilding;
     private final Queue<Worker> activeWorkers;
     // private NotWorkingWorkersPool nonActiveWorkers;  // TODO: Implement NonActiveWorkersPool after 2020-01-09
-    private AssemblyState state;
-    private final AssemblyConfiguration configuration;
-    private final AssemblyConsumption consumption;   
+    private AssemblyState state;     
 
     protected Assembly(int priority, String name, FactoryBuilding factoryBuilding, 
             Queue<Worker> activeWorkers, AssemblyConfiguration configuration, AssemblyConsumption consumption, Queue<Series> workingPlan) {
+        super(configuration, consumption);
         this.priority = priority;
         this.state = new IsChangingSeries(this, workingPlan, workingPlan.poll());
         this.name = name;
         this.factoryBuilding = factoryBuilding;
-        this.activeWorkers = activeWorkers;
-        this.configuration = configuration;
-        this.consumption = consumption;
+        this.activeWorkers = activeWorkers;        
     }
         
     // TODO: Implement NonActiveWorkersPool after 2020-01-09
@@ -66,20 +64,10 @@ public class Assembly extends HierarchyNode<AssemblyConfiguration, AssemblyConsu
 
     @Override
     public void logEvent(Event e) {
-        LOG.debug(this + " " + e);
-        eventHistory.add(e);
+        super.logEvent(e);
+        LOG.debug(this + " " + e);        
     }
-
-    @Override
-    public AssemblyConfiguration getConfiguration() {
-        return configuration;
-    }
-
-    @Override
-    public AssemblyConsumption getConsumption() {
-        return consumption;
-    }
-    
+        
     /**
      * Gets the priority of the assembly.
      * @return 
@@ -104,6 +92,23 @@ public class Assembly extends HierarchyNode<AssemblyConfiguration, AssemblyConsu
         return name;
     }
 
+    /**
+     * Returns the parent factory building of the assembly
+     * @return parent factory building
+     */
+    public FactoryBuilding getFactoryBuilding() {
+        return factoryBuilding;
+    }
+
+    /**
+     * Returns all workers associated with the assembly
+     * @return list of workers
+     */
+    public List<Worker> getWorkers() {
+        return activeWorkers.stream().collect(Collectors.toList());
+    }    
+    
+        
     AssemblyState getState() {
         return state;
     }
