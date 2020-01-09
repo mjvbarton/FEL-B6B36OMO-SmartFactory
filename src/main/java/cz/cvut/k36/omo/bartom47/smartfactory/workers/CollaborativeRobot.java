@@ -14,6 +14,8 @@ public class CollaborativeRobot extends RepairableWorker {
     public CollaborativeRobot(Assembly assembly, String name, HashMap<Consumable, Integer> unitConsumptionPerTick) {
         super(assembly, name, unitConsumptionPerTick);
     }
+    
+    
 
     @Override
     public void handle(Event e) {

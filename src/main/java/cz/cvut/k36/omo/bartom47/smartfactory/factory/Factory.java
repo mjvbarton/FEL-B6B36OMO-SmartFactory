@@ -26,6 +26,10 @@ public class Factory extends HierarchyNode<FactoryConfiguration, FactoryConsumpt
         super(configuration, consumption);
         this.factoryBuildings = factoryBuildings;        
     }   
+    
+    public static Factory create(){
+        return new Factory(new HashSet(), new FactoryConfiguration(), new FactoryConsumption());
+    }
         
     @Override
     protected List<HierarchyNode> getPropagatorChildren() {
@@ -54,6 +58,10 @@ public class Factory extends HierarchyNode<FactoryConfiguration, FactoryConsumpt
      */
     public void tick(){
         Tick.dispatch(this, this);
+    }
+    
+    public void addBuildings(List<FactoryBuilding> buildings){
+        this.factoryBuildings.addAll(buildings);
     }
     
 }

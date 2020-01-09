@@ -5,6 +5,7 @@
  */
 package cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Consumable;
 import java.util.Objects;
 
@@ -12,12 +13,13 @@ import java.util.Objects;
  *
  * @author Matej
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class ConsumableConsumption extends ConsumptionData<Consumable>{
     private Double cost;
     
     private Integer consumed;
     
-    public ConsumableConsumption(Consumable parentNode) {
+    public ConsumableConsumption() {
         super();
         cost = new Double(0);
         consumed = 0;        
@@ -27,6 +29,10 @@ public class ConsumableConsumption extends ConsumptionData<Consumable>{
         Objects.requireNonNull(consumed);
         this.consumed = consumed;
     }        
+    
+    public String getName(){
+        return parentNode.getName();
+    }
 
     public Double getCost() {
         return parentNode.getUnitCost() * consumed.doubleValue();

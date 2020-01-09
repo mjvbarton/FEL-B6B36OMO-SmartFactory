@@ -1,5 +1,7 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import cz.cvut.k36.omo.bartom47.smartfactory.core.DataModelNode;
 import java.util.Objects;
 
@@ -8,6 +10,7 @@ import java.util.Objects;
  * @author Matej
  * @param <E> type of {@link ConsumptionDataContainer}
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public abstract class ConsumptionData<E extends ConsumptionDataContainer> implements DataModelNode<E>{
     protected E parentNode;
     private boolean isParentNodeSet= false;
@@ -20,6 +23,7 @@ public abstract class ConsumptionData<E extends ConsumptionDataContainer> implem
     public ConsumptionData() {
     }
     
+    @JsonIgnore
     @Override
     public E getParent() {
         return parentNode;

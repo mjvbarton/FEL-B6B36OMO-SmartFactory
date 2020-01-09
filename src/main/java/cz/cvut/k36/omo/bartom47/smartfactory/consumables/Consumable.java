@@ -58,6 +58,8 @@ public abstract class Consumable implements ConsumptionDataContainer<ConsumableC
 
     @Override
     public ConsumableConsumption getConsumption() {
-        return new ConsumableConsumption(this);
+        final ConsumableConsumption c = new ConsumableConsumption();
+        c.setParent(this);
+        return c;        
     }
 }

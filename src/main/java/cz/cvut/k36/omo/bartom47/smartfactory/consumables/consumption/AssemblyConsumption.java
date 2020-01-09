@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
  */
 public class AssemblyConsumption extends ConsumptionData<Assembly>{
     
-    public AssemblyConsumption(Assembly parentNode) {
+    public AssemblyConsumption() {
         super();
     }
     
@@ -17,7 +17,7 @@ public class AssemblyConsumption extends ConsumptionData<Assembly>{
         return getParent().getName();
     }
     
-    public String getFactoryBuilding(){
+    public String getFactoryBuildingName(){
         return getParent().getFactoryBuilding().getName();
     }
     

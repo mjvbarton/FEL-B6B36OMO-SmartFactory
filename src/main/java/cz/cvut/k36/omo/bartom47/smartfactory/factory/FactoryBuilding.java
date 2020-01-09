@@ -16,9 +16,14 @@ import org.slf4j.LoggerFactory;
  * Represents a building of the factory.
  * @author Matej
  */
-public abstract class FactoryBuilding 
+public class FactoryBuilding 
         extends HierarchyNode<FactoryBuildingConfiguration, FactoryBuildingConsumption>{
     private static Logger LOG = LoggerFactory.getLogger(FactoryBuilding.class);
+
+    public static FactoryBuilding create(Factory factory, String name) {
+        return new FactoryBuilding(new HashSet(), name, factory, new FactoryBuildingConfiguration(),
+        new FactoryBuildingConsumption());
+    }
     
     private final Set<Assembly> assemblies;    
     private final String name;
@@ -85,4 +90,8 @@ public abstract class FactoryBuilding
     public Set<Assembly> getAssemblies() {
         return new HashSet(assemblies);
     }    
+    
+    public void addAssemblies(List<Assembly> assemblies){
+        this.assemblies.addAll(assemblies);
+    }
 }

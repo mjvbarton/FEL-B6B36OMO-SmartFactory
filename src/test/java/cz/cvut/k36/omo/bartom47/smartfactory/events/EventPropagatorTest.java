@@ -5,7 +5,7 @@
  */
 package cz.cvut.k36.omo.bartom47.smartfactory.events;
 
-import cz.cvut.k36.omo.bartom47.smartfactory.HierarchyNode;
+import cz.cvut.k36.omo.bartom47.smartfactory.factory.HierarchyNode;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -59,5 +59,5 @@ public class EventPropagatorTest {
         verify(node, times(1)).handle(any(PropagatableEvent.class));
         verify(node, times(1)).propagate(any(PropagatableEvent.class));
         verify(node, times(1)).handle(any(Event.class));
-    }         
+}         
 }

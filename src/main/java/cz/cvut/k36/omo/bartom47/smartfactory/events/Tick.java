@@ -4,14 +4,18 @@ package cz.cvut.k36.omo.bartom47.smartfactory.events;
  * Represents time tick in the simulation.
  * @author Matej
  */
-public final class Tick extends PropagatableEvent{
+public class Tick extends PropagatableEvent{
     
     /**
      * Represents the count of created ticks. Used for generating {@code Tick.tickId}
      */
     private static int tickCount = 0;
         
-    private final int tickId;
+    private final Integer tickId;
+    
+    public static void resetCounter(){
+        tickCount = 0;
+    }
     
     /**
      * Creates new Tick event with id given.
@@ -50,7 +54,7 @@ public final class Tick extends PropagatableEvent{
      * Get the number of actual tick
      * @return the tick id
      */
-    public int getTickId() {
+    public Integer getTickId() {
         return tickId;
     }        
     

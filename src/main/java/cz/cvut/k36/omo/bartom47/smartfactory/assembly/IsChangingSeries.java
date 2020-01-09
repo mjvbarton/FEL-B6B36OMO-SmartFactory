@@ -21,7 +21,7 @@ class IsChangingSeries extends AssemblyState{
     // TODO: Implement logic here.   
     @Override
     AssemblyState next() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return this;
     }
     
 }

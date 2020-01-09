@@ -29,7 +29,7 @@ public class PersonWorker extends Worker{
 
     @Override
     public void handle(Event e) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        super.handle(e);
     }
     
     

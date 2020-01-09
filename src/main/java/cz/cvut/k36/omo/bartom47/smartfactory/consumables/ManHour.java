@@ -4,6 +4,7 @@ package cz.cvut.k36.omo.bartom47.smartfactory.consumables;
  * Represented worked hours of {@link PersonWorker}
  * @author Matej
  */
+//TODO: Singletonize
 public class ManHour extends Consumable{
     private static final double DEFAULT_UNIT_COST = 1.01;
     private static final String DEFAULT_UNIT_NAME = "man-hour";

@@ -5,9 +5,9 @@ import cz.cvut.k36.omo.bartom47.smartfactory.assembly.Assembly;
  * Represents configuration data for {@link Assembly}.
  * @author Matej
  */
-public class AssemblyConfiguration extends ConfigurationData{
+public class AssemblyConfiguration extends ConfigurationData<Assembly>{
     
-    public AssemblyConfiguration(ConfigurationDataContainer parentNode) {
+    public AssemblyConfiguration() {
         super();
     }
     

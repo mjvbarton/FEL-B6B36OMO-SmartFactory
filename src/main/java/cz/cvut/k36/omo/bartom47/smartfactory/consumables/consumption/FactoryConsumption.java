@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
  */
 public class FactoryConsumption extends ConsumptionData<Factory>{
     
-    public FactoryConsumption(Factory parentNode) {
+    public FactoryConsumption() {
         super();
     }
     

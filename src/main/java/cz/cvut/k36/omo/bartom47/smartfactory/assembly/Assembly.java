@@ -9,6 +9,7 @@ import cz.cvut.k36.omo.bartom47.smartfactory.events.PropagatableEvent;
 import cz.cvut.k36.omo.bartom47.smartfactory.production.Series;
 import cz.cvut.k36.omo.bartom47.smartfactory.workers.Worker;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
@@ -23,6 +24,12 @@ import org.slf4j.LoggerFactory;
 // TODO: Implement toString()
 public class Assembly extends HierarchyNode<AssemblyConfiguration, AssemblyConsumption>{    
     private static Logger LOG = LoggerFactory.getLogger(Assembly.class);
+
+    public static Assembly create(int priority, String name, FactoryBuilding building) {
+        Assembly a = new Assembly(priority, name, building, new LinkedList(), new LinkedList(),
+        new AssemblyConfiguration(), new AssemblyConsumption());
+        return a;        
+    }
     
     private int priority;
     private final String name;
@@ -32,7 +39,8 @@ public class Assembly extends HierarchyNode<AssemblyConfiguration, AssemblyConsu
     private AssemblyState state;     
 
     protected Assembly(int priority, String name, FactoryBuilding factoryBuilding, 
-            Queue<Worker> activeWorkers, AssemblyConfiguration configuration, AssemblyConsumption consumption, Queue<Series> workingPlan) {
+            Queue<Worker> activeWorkers, Queue<Series> workingPlan, AssemblyConfiguration configuration,
+            AssemblyConsumption consumption) {
         super(configuration, consumption);
         this.priority = priority;
         this.state = new IsChangingSeries(this, workingPlan, workingPlan.poll());
@@ -131,4 +139,8 @@ public class Assembly extends HierarchyNode<AssemblyConfiguration, AssemblyConsu
         state.workingPlan.add(series);
     }
     
+    
+    public synchronized void addWorkers(Collection<Worker> workers){
+        activeWorkers.addAll(workers);
+    }
 }
