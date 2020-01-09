@@ -1,4 +1,4 @@
-package cz.cvut.k36.omo.bartom47.smartfactory;
+package cz.cvut.k36.omo.bartom47.smartfactory.factory;
 
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.ConfigurationData;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.ConfigurationDataContainer;
@@ -7,7 +7,9 @@ import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.Consumption
 import cz.cvut.k36.omo.bartom47.smartfactory.events.Event;
 import cz.cvut.k36.omo.bartom47.smartfactory.events.EventPropagator;
 import cz.cvut.k36.omo.bartom47.smartfactory.events.PropagatableEvent;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Queue;
 
 /**
  *
@@ -18,6 +20,17 @@ import java.util.List;
 public abstract class HierarchyNode<K extends ConfigurationData, T extends ConsumptionData> implements EventPropagator, 
         ConfigurationDataContainer<K>, 
             ConsumptionDataContainer<T>{    
+    /**
+     * Event history. Elements should be added directly via method 
+     * {@link #logEvent(Event) }.
+     * For creating reports based on event history use 
+     * {@link #getHistory()}
+     */
+    protected final Queue<Event> eventHistory;
+
+    protected HierarchyNode() {
+        this.eventHistory = new LinkedList();
+    }            
     
     /**
      * Get list of children nodes events are propagated to.
@@ -34,5 +47,14 @@ public abstract class HierarchyNode<K extends ConfigurationData, T extends Consu
     public void handle(PropagatableEvent e) {
         handle((Event) e);
         propagate(e);
-    }    
+    }   
+    
+    /**
+     * Gets copy of event history. Elements to history should be added
+     * via directly {@link #eventHistory} by method {@link #logEvent(Event) }
+     * @return queue of events
+     */
+    public Queue<Event> getHistory(){
+        return new LinkedList(eventHistory);
+    }
 }

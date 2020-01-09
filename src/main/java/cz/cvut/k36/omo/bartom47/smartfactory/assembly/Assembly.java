@@ -1,7 +1,7 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.assembly;
 
-import cz.cvut.k36.omo.bartom47.smartfactory.FactoryBuilding;
-import cz.cvut.k36.omo.bartom47.smartfactory.HierarchyNode;
+import cz.cvut.k36.omo.bartom47.smartfactory.factory.FactoryBuilding;
+import cz.cvut.k36.omo.bartom47.smartfactory.factory.HierarchyNode;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.AssemblyConfiguration;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.AssemblyConsumption;
 import cz.cvut.k36.omo.bartom47.smartfactory.events.Event;

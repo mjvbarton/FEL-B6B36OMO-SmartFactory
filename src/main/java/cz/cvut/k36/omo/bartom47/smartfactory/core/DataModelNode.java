@@ -1,4 +1,4 @@
-package cz.cvut.k36.omo.bartom47.smartfactory;
+package cz.cvut.k36.omo.bartom47.smartfactory.core;
 
 
 /**
