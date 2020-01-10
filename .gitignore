@@ -17,3 +17,4 @@
 log/
 target/
 /nbproject/
+resources/reports/*.yaml
