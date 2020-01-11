@@ -4,25 +4,25 @@ import cz.cvut.k36.omo.bartom47.smartfactory.assembly.Assembly;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Consumable;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Electricity;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Oil;
-import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.WorkerConfiguration;
-import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.WorkerConsumption;
 import java.util.HashMap;
 
 /**
- *
+ * Represents Machine worker. <br>
+ * This entity consumes {@link Oil} and {@link Electricity} by default.
  * @author Matej
  */
 public class Machine extends RepairableWorker{
     
-    public Machine(Assembly assembly, String name, HashMap<Consumable, Integer> unitConsumptionPerTick) {
-        super(assembly, name, unitConsumptionPerTick);
+    public Machine(Assembly assembly, String name) {
+        super(assembly, name, new HashMap());        
     }
     
-    public static Machine create(Assembly assembly, String name){
-        HashMap<Consumable, Integer> uct = new HashMap();
-        uct.put(new Electricity(), 10);
-        uct.put(new Oil(), 2);
-        return new Machine(assembly, name, uct);
+    public static Machine create(Assembly assembly, String name, 
+            int electricityConsumptionPerTick, int oilConsumptionPerTick){
+        final Machine m = new Machine(assembly, name);        
+        final Electricity e = new Electricity(m, electricityConsumptionPerTick);
+        final Oil o = new Oil(m, oilConsumptionPerTick);
+        return m;
     }
     
 }

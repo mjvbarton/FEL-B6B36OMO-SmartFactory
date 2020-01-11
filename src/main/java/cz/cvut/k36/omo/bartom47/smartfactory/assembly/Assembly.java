@@ -1,18 +1,19 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.assembly;
 
-import cz.cvut.k36.omo.bartom47.smartfactory.factory.FactoryBuilding;
-import cz.cvut.k36.omo.bartom47.smartfactory.factory.HierarchyNode;
-import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.AssemblyConfiguration;
-import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.AssemblyConsumption;
-import cz.cvut.k36.omo.bartom47.smartfactory.events.Event;
-import cz.cvut.k36.omo.bartom47.smartfactory.events.PropagatableEvent;
+import cz.cvut.k36.omo.bartom47.smartfactory.buildings.Building;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.HierarchyNode;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Event;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.PropagatableEvent;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Tick;
 import cz.cvut.k36.omo.bartom47.smartfactory.production.Series;
 import cz.cvut.k36.omo.bartom47.smartfactory.workers.Worker;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
+import java.util.Set;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -21,64 +22,60 @@ import org.slf4j.LoggerFactory;
  * Represents an assembly in the factory
  * @author Matej
  */
-// TODO: Implement toString()
-public class Assembly extends HierarchyNode<AssemblyConfiguration, AssemblyConsumption>{    
+// TODO: Fix Javadoc
+public class Assembly extends HierarchyNode<Building, Worker, AssemblyConfiguration, AssemblyConsumption>{    
     private static Logger LOG = LoggerFactory.getLogger(Assembly.class);
-
-    public static Assembly create(int priority, String name, FactoryBuilding building) {
-        Assembly a = new Assembly(priority, name, building, new LinkedList(), new LinkedList(),
-        new AssemblyConfiguration(), new AssemblyConsumption());
-        return a;        
-    }
-    
     private int priority;
-    private final String name;
-    private final FactoryBuilding factoryBuilding;
     private final Queue<Worker> activeWorkers;
     // private NotWorkingWorkersPool nonActiveWorkers;  // TODO: Implement NonActiveWorkersPool after 2020-01-09
-    private AssemblyState state;     
+    private AssemblyState state; 
 
-    protected Assembly(int priority, String name, FactoryBuilding factoryBuilding, 
-            Queue<Worker> activeWorkers, Queue<Series> workingPlan, AssemblyConfiguration configuration,
-            AssemblyConsumption consumption) {
-        super(configuration, consumption);
-        this.priority = priority;
-        this.state = new IsChangingSeries(this, workingPlan, workingPlan.poll());
-        this.name = name;
-        this.factoryBuilding = factoryBuilding;
-        this.activeWorkers = activeWorkers;        
+    /**
+     * Creates new Assembly with empty work plan.
+     * @param building parent building of the assembly
+     * @param name the name of the assembly
+     * @param priority the priority of the assembly,
+     * higher value means higher priority
+     * @return new assembly
+     */
+    // TODO: Add name management
+    public static Assembly create(Building building, String name, int priority) {
+        return new Assembly(building, name, priority, new LinkedList());
     }
-        
-    // TODO: Implement NonActiveWorkersPool after 2020-01-09
-    @Override
-    public void propagate(PropagatableEvent e) {
-        activeWorkers.forEach(aW -> aW.handle(e));
-    }    
     
     /**
-     * @since 1.0-BETA not supported, throws {@link UnsupportedOperationException}     
-     * @throws UnsupportedOperationException always
+     * Creates new Assembly with specified work plan.
+     * @param building parent building of the assembly
+     * @param name the name of the assembly
+     * @param priority the priority of the assembly,
+     * higher value means higher priority
+     * @param workPlan the work plan for the assembly
+     * @return new assembly
      */
-    @Override    
-    protected List<HierarchyNode> getPropagatorChildren() {
-        LOG.error("Unsupported method 'getPropagatorChildren' called.", new UnsupportedOperationException("Method is not supported."));
-        throw new UnsupportedOperationException("Method is not supported.");
+    // TODO: Add name management
+    public static Assembly create(Building building, String name, int priority, Queue<Series> workPlan) {
+        return new Assembly(building, name, priority, workPlan);
     }
-
-    @Override
-    public void handle(Event e) {
-        logEvent(e);
+    
+    /**
+     * Default constructor for the assembly.
+     * @param building parent building of the assembly
+     * @param name the name of the assembly
+     * @param priority the prioritz of the assembly, higher value means higher priority
+     * @param workPlan work plan for the assembly
+     */
+    private Assembly(Building building, String name, int priority, Queue<Series> workPlan){
+        super(building, name, new AssemblyConfiguration(), new AssemblyConsumption());        
+        building.addAssembly(this);        
+        this.priority = priority;        
+        state = new IsChangingSeries(this, workPlan, workPlan.poll());
+        activeWorkers = new LinkedList();                       
     }
-
-    @Override
-    public void logEvent(Event e) {
-        super.logEvent(e);
-        LOG.debug(this + " " + e);        
-    }
-        
+    
     /**
      * Gets the priority of the assembly.
-     * @return 
+     *
+     * @return
      */
     public int getPriority() {
         return priority;
@@ -86,61 +83,77 @@ public class Assembly extends HierarchyNode<AssemblyConfiguration, AssemblyConsu
 
     /**
      * Sets the priority of the assembly
-     * @param priority 
+     *
+     * @param priority
      */
-    public synchronized void setPriority(int priority) {        
+    public synchronized void setPriority(int priority) {
         this.priority = priority;
-    }       
-
-    /**
-     * Gets the name of the assembly
-     * @return the name of the assembly
-     */
-    public String getName() {
-        return name;
-    }
-
-    /**
-     * Returns the parent factory building of the assembly
-     * @return parent factory building
-     */
-    public FactoryBuilding getFactoryBuilding() {
-        return factoryBuilding;
-    }
-
-    /**
-     * Returns all workers associated with the assembly
-     * @return list of workers
-     */
-    public List<Worker> getWorkers() {
-        return activeWorkers.stream().collect(Collectors.toList());
-    }    
+    }                   
     
-        
     AssemblyState getState() {
         return state;
     }
-    
+
     /**
      * Adds a collection of {@code Series} to working plan
-     * @param series 
+     *
+     * @param series
      */
-    public synchronized void addSeriesToWorkingPlan(Collection<Series> series){
+    public synchronized void addSeriesToWorkingPlan(Collection<Series> series) {
         Objects.requireNonNull(series);
         series.forEach(s -> addSeriesToWorkingPlan(s));
     }
-    
+
     /**
      * Adds a single {@link Series} to working plan
-     * @param series 
+     *
+     * @param series
      */
-    public synchronized void addSeriesToWorkingPlan(Series series){
+    public synchronized void addSeriesToWorkingPlan(Series series) {
         Objects.requireNonNull(series);
         state.workingPlan.add(series);
     }
-    
-    
-    public synchronized void addWorkers(Collection<Worker> workers){
+
+    /**
+     *
+     * @param workers
+     */
+    public synchronized void addWorker(Collection<Worker> workers) {
         activeWorkers.addAll(workers);
     }
+
+    /**
+     *
+     * @param worker
+     */
+    public synchronized void addWorker(Worker worker) {
+        activeWorkers.add(worker);
+    }
+
+    @Override
+    public void handle(Event e) {
+        if(e instanceof Tick){
+            LOG.debug(this + " handled event " + e);
+            logEvent(e);            
+            propagate((Tick) e);
+        } else {
+            LOG.warn("Unhandled event at " + this);
+        }
+    }           
+    
+    @Override
+    public Set<Worker> getChildren() {
+        return new HashSet(activeWorkers);
+    }
+
+    // TODO: Implement NonActiveWorkersPool after 2020-01-09
+    @Override
+    public void propagate(PropagatableEvent e) {
+        activeWorkers.forEach(aW -> aW.handle(e));
+    }
+        
+    @Override
+    public String toString() {
+        return "Assembly['" + getName() + "']";
+    }        
 }

@@ -1,5 +1,6 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.production;
 
+import cz.cvut.k36.omo.bartom47.smartfactory.core.ConfigurationDataContainer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -8,7 +9,7 @@ import org.slf4j.LoggerFactory;
  * @author Matej
  * @param <P> the type of product in series
  */
-public class Series<P extends Product> {
+public class Series<P extends Product> implements ConfigurationDataContainer<SeriesConfiguration>{
     private static Logger LOG = LoggerFactory.getLogger(Series.class);
     
     private final P product;
@@ -37,7 +38,7 @@ public class Series<P extends Product> {
     public boolean hasNoProductsToProduce(){                
         return toProduce == 0;
     }
-    
+            
     /**
      * Updates the number of products.     
      */
@@ -45,4 +46,12 @@ public class Series<P extends Product> {
         toProduce -= product.getProductsPerTick();
         LOG.debug("Number of 'toProduce' updated to " + toProduce);
     }
+
+    /**    
+     * @since 1.0-BETA Not supported - throws {@link UnsupportedOperationException}.
+     */
+    @Override
+    public SeriesConfiguration getConfiguration() {
+        throw new UnsupportedOperationException("Not implemented in version 1.0-BETA.");
+    }        
 }

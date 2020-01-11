@@ -1,6 +1,7 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.consumables.materials;
 
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Consumable;
+import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Consument;
 
 /**
  * Represents material.
@@ -10,8 +11,10 @@ import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Consumable;
  */
 public abstract class Material extends Consumable{
     
-    public Material(double unitCost, String name, String unitName, String unitShortcutName, String costCurrencyShortcut) {
-        super(unitCost, name, unitName, unitShortcutName, costCurrencyShortcut);
+    public Material(Consument consument, double unitCost, String name, 
+            String unitName, String unitShortcutName, 
+            String costCurrencyShortcut, Integer unitsConsumedPerTick) {
+        super(consument, name, unitCost, unitName, unitShortcutName, costCurrencyShortcut, unitsConsumedPerTick);
         throw new UnsupportedOperationException("Not supported yet.");
     }           
 }

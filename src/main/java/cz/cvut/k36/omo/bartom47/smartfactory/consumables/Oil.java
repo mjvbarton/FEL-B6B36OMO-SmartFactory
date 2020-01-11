@@ -16,13 +16,15 @@ public final class Oil extends Consumable{
     private static final String DEFAULT_UNIT_SHORTCUT = "l";
     private static final String DEFAULT_COST_CURRENCY = "CZK";
     
-    public Oil() {
+    public Oil(Consument consument, Integer unitsConsumedPerTick) {
         super(
-                DEFAULT_UNIT_COST,
+                consument,                
                 Oil.class.getSimpleName(),
+                DEFAULT_UNIT_COST,
                 DEFAULT_UNIT_NAME,
                 DEFAULT_UNIT_SHORTCUT,
-                DEFAULT_COST_CURRENCY
+                DEFAULT_COST_CURRENCY,
+                unitsConsumedPerTick
         );
     }
 }

@@ -1,8 +1,8 @@
 package cz.cvut.k36.omo.bartom47.smartfactory;
 
-import cz.cvut.k36.omo.bartom47.smartfactory.events.Tick;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Tick;
 import cz.cvut.k36.omo.bartom47.smartfactory.factory.Factory;
-import cz.cvut.k36.omo.bartom47.smartfactory.factory.HierarchyNode;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.HierarchyNode;
 import cz.cvut.k36.omo.bartom47.smartfactory.reports.ConsumptionReport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,9 +24,7 @@ public class SmartFactory implements Runnable{
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        Thread f = new Thread(
-              new SmartFactory(Factory.create()));
-        f.start();        
+              
     }
 
     @Override

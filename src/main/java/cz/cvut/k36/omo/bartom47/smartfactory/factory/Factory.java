@@ -1,13 +1,13 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.factory;
 
-import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.FactoryConfiguration;
-import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.FactoryConsumption;
-import cz.cvut.k36.omo.bartom47.smartfactory.events.Event;
-import cz.cvut.k36.omo.bartom47.smartfactory.events.Tick;
+import cz.cvut.k36.omo.bartom47.smartfactory.buildings.Building;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.HierarchyNode;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Event;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Tick;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,52 +16,57 @@ import org.slf4j.LoggerFactory;
  * @author Matej
  */
 // TODO: Fix javadoc
-// TODO: Implement toString()
-// TODO: Move factory to a package cz.cvut.k36.omo.bartom47.smartfactory.factory
-public class Factory extends HierarchyNode<FactoryConfiguration, FactoryConsumption> {
+public class Factory extends HierarchyNode<Factory, Building, FactoryConfiguration, FactoryConsumption> {
     private static Logger LOG = LoggerFactory.getLogger(Factory.class);    
-    private final Set<FactoryBuilding> factoryBuildings;        
+    private final Set<Building> buildings;        
         
-    public Factory(Set<FactoryBuilding> factoryBuildings, FactoryConfiguration configuration, FactoryConsumption consumption) {
-        super(configuration, consumption);
-        this.factoryBuildings = factoryBuildings;        
-    }   
-    
-    public static Factory create(){
-        return new Factory(new HashSet(), new FactoryConfiguration(), new FactoryConsumption());
-    }
-        
-    @Override
-    protected List<HierarchyNode> getPropagatorChildren() {
-        return factoryBuildings.stream()
-                .map(fb -> (HierarchyNode) fb)
-                .collect(Collectors.toList());                
-    }
-    
-    public Set<FactoryBuilding> getBuildings(){
-        return new HashSet(factoryBuildings);
-    }
-
-    @Override
-    public void handle(Event e) {
-        logEvent(e);
-    }
-    
-    @Override
-    public void logEvent(Event e) {
-        super.logEvent(e);
-        LOG.debug(e.toString());        
+    private Factory(String name) {
+        super(null, name, new FactoryConfiguration(), new FactoryConsumption());
+        this.buildings = new HashSet();        
     }
     
     /**
+     * Creates new factory with name given.
+     * @param name the name of the factory
+     * @return new factory
+     */
+    public static Factory create(String name){
+        return new Factory(name);
+    }
+                          
+    /**
      * Generates {@link Tick} events at the whole factory.
      */
-    public void tick(){
+    public void tick(){       
         Tick.dispatch(this, this);
     }
     
-    public void addBuildings(List<FactoryBuilding> buildings){
-        this.factoryBuildings.addAll(buildings);
+    public void addBuilding(Collection<Building> buildings){
+        this.buildings.addAll(buildings);
     }
     
+    public void addBuilding(Building building){
+       buildings.add(building);
+    }
+
+    @Override
+    public Set<Building> getChildren() {
+        return buildings;
+    }
+
+    @Override
+    public void handle(Event e) {        
+        if(e instanceof Tick){
+            LOG.debug(this + " handled event " + e);
+            logEvent(e);            
+            propagate((Tick) e);
+        } else {
+            LOG.warn("Unhandled event at " + this);
+        }
+    }        
+
+    @Override
+    public String toString() {
+        return "Factory['" + getName() + "']";
+    }        
 }

@@ -4,15 +4,10 @@ import cz.cvut.k36.omo.bartom47.smartfactory.assembly.Assembly;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Consumable;
 import cz.cvut.k36.omo.bartom47.smartfactory.core.TimeWorkingEntity;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Consument;
-import cz.cvut.k36.omo.bartom47.smartfactory.consumables.configuration.WorkerConfiguration;
-import cz.cvut.k36.omo.bartom47.smartfactory.consumables.consumption.WorkerConsumption;
-import cz.cvut.k36.omo.bartom47.smartfactory.events.Event;
-import cz.cvut.k36.omo.bartom47.smartfactory.events.Tick;
-import cz.cvut.k36.omo.bartom47.smartfactory.factory.HierarchyNode;
-import java.util.ArrayList;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Event;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Tick;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Objects;
 import java.util.Queue;
 import org.slf4j.Logger;
@@ -22,55 +17,45 @@ import org.slf4j.LoggerFactory;
  * Represents consument entity.
  * @author Matej  
  */
-// TODO: Add javadoc
 public abstract class Worker extends
-        Consument<WorkerConfiguration, WorkerConsumption> implements TimeWorkingEntity{
+        Consument<Assembly, Consumable, WorkerConfiguration, WorkerConsumption> implements TimeWorkingEntity{
     private static final Logger LOG = LoggerFactory.getLogger(Worker.class);
     
-    protected final Assembly assembly;
-    protected final String name;    
+    protected final Assembly assembly;    
     private final Queue<Event> eventLog = new LinkedList();
 
-    protected Worker(Assembly assembly, String name, HashMap<Consumable, Integer> unitConsumptionPerTick, 
-            WorkerConfiguration configuration, WorkerConsumption consumption) {
-        super(unitConsumptionPerTick, configuration, consumption);
+    /**
+     * Creates new worker with default configuration and consumption.
+     * @param assembly parent assembly
+     * @param name name of the worker
+     * @param unitConsumptionPerTick table of consumptions per tick
+     */ 
+    protected Worker(Assembly assembly, String name, HashMap<Consumable, Integer> unitConsumptionPerTick) {
+        super(assembly, name, new WorkerConfiguration(), new WorkerConsumption(), unitConsumptionPerTick);
         Objects.requireNonNull(assembly);
         this.assembly = assembly;
-        this.name = name;
-    }        
-
-    @Override
-    protected List<HierarchyNode> getPropagatorChildren() {
-        // Worker does not have any children.
-        return new ArrayList();
-    }        
-
+        assembly.addWorker(this);        
+    }
+        
     @Override
     public void doWork() {
-        LOG.debug("Worker '" + name + "' has worked.");
-        updateConsumption();
-    }
-
+        LOG.debug(this + " has worked");        
+    }            
+            
     @Override
-    public void logEvent(Event e) {
-        LOG.debug("Captured event: " + e);
-        super.logEvent(e);
-    }        
-        
-    public Assembly getAssembly() {
-        return assembly;
-    }
-
-    public String getName() {
-        return name;        
-    }                      
-
-    // TODO: Add logic
-    @Override
-    public void handle(Event e) {     
-        logEvent(e);
+    public void handle(Event e) {                             
         if(e instanceof Tick){
-            updateConsumption();
+            logEvent(e);
+            doWork();
+            propagate((Tick) e);
+        } else {
+            LOG.warn("Unhandled event at " + this);
         }
-    }        
+    }   
+
+    @Override
+    public String toString() {
+        return "Worker['" + getName() + "']";
+    }
+    
 }

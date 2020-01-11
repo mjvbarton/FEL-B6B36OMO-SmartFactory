@@ -1,6 +1,6 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.reports;
 
-import cz.cvut.k36.omo.bartom47.smartfactory.events.Tick;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Tick;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -16,6 +16,7 @@ public class ConsumptionReport extends FactoryReport{
                 
         StringBuilder sb = new StringBuilder();
         return sb
+                .append("consumption/")
                 .append(ConsumptionReport.class.getSimpleName())
                 .append("-")
                 .append(df.format(new Date()))
@@ -25,6 +26,6 @@ public class ConsumptionReport extends FactoryReport{
     }
         
     public ConsumptionReport(Integer tickId) {        
-        super(getResourcePath(tickId));
+        super(getResourcePath(tickId), ConsumptionReport.class.getSimpleName());
     }       
 }

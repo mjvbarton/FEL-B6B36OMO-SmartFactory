@@ -14,16 +14,23 @@ import org.slf4j.LoggerFactory;
 public abstract class FactoryReport<E extends DataModelNode> {
     private static String RESOURCES_LOCATION_PATH = "src/main/resources/reports/";
     private static Logger LOG = LoggerFactory.getLogger(FactoryReport.class);
+    private final String reportType;
     private final String resourcePath;
     
-    public FactoryReport(String resourcePath){
+    public FactoryReport(String resourcePath, String reportType){
         this.resourcePath = resourcePath;
+        this.reportType = reportType;
     }
     
-    public void generate(E dataNode){
+    protected File getFile(String path){
+        return new File(path);        
+    }
+    
+    public String generate(E dataNode){
         try {
             String path = new StringBuilder().append(RESOURCES_LOCATION_PATH).append(resourcePath).toString();
-            ReportConfiguration.getObjectMapper().writeValue(new File(path), dataNode);
+            ReportConfiguration.getObjectMapper().writeValue(getFile(path), dataNode);
+            return path;
         } catch (IOException ex) {
             LOG.error("An error occured during writing to the file", ex);
             throw new RuntimeException("An error occured during writing to the file", ex);
