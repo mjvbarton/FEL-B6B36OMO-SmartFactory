@@ -1,7 +1,5 @@
 package cz.cvut.k36.omo.hw.hw02;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author Matej
@@ -27,19 +25,20 @@ public class OMOSetUnion implements OMOSetView{
 
     @Override
     public int[] toArray() {
-        ArrayList<Integer> rawResult = new ArrayList();
-        for(Integer element : setA.toArray()){
-            rawResult.add(element);
+        OMOSetIntersection intersect = new OMOSetIntersection(setA, setB);
+        OMOSetComplement compl = new OMOSetComplement(setA, setB);
+        int[] arrIntersect = intersect.toArray();
+        int[] arrCompl = compl.toArray();
+        int[] result = new int[arrIntersect.length + arrCompl.length];
+        
+        for(int i = 0; i < arrIntersect.length; i++){
+            result[i] = arrIntersect[i];
         }
-        for(Integer element : setB.toArray()){
-            if(setA.contains(element) == false){
-                rawResult.add(element);
-            }
+        
+        for(int i = 0; i < arrCompl.length; i++){
+            result[arrIntersect.length + i] = arrCompl[i];
         }
-        int[] result = new int[rawResult.size()];
-        for(int i = 0; i < rawResult.size(); i++){
-            result[i] = rawResult.get(i);
-        }
+        
         return result;
     }
 
