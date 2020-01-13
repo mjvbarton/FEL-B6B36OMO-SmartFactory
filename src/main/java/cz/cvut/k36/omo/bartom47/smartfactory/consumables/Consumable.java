@@ -45,18 +45,34 @@ public abstract class Consumable extends HierarchyNode<Consument, HierarchyNode,
         parent.addConsumable(this, unitsConsumedPerTick);
     }
    
+    /**
+     * Gets the financial cost of unit
+     * @return cost of one unit
+     */
     public double getUnitCost() {
         return unitCost;
     }
    
+    /**
+     * Gets the name of used unit
+     * @return name of the unit
+     */
     public String getUnitName() {
         return unitName;
     }
 
+    /**
+     * Gets the shortcut of used unit
+     * @return the shortcut of the unit
+     */
     public String getUnitShortcut() {
         return unitShortcutName;
     }
 
+    /**
+     * Gets the shortcut of used currency
+     * @return 
+     */
     public String getCostCurrencyShortcut() {
         return costCurrencyShortcut;
     }        

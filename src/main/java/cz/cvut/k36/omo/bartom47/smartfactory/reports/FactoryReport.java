@@ -7,9 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- *
+ * Represents generated report of the factory. The report is generated
+ * to {@code *.yaml} file.
  * @author Matej
- * @param <E>
+ * @param <E> type of accepted {@link DataModelNode}
  */
 public abstract class FactoryReport<E extends DataModelNode> {
     private static String RESOURCES_LOCATION_PATH = "src/main/resources/reports/";
@@ -17,7 +18,12 @@ public abstract class FactoryReport<E extends DataModelNode> {
     private final String reportType;
     private final String resourcePath;
     
-    public FactoryReport(String resourcePath, String reportType){
+    /**
+     * Creates new factory report
+     * @param resourcePath path to the resource
+     * @param reportType type of the report
+     */
+    protected FactoryReport(String resourcePath, String reportType){
         this.resourcePath = resourcePath;
         this.reportType = reportType;
     }
@@ -26,6 +32,11 @@ public abstract class FactoryReport<E extends DataModelNode> {
         return new File(path);        
     }
     
+    /**
+     * Generates report in to file for data model node given.
+     * @param dataNode node of the data model. See: {@link DataModelNode}
+     * @return path of newly generated file as string
+     */
     public String generate(E dataNode){
         try {
             String path = new StringBuilder().append(RESOURCES_LOCATION_PATH).append(resourcePath).toString();

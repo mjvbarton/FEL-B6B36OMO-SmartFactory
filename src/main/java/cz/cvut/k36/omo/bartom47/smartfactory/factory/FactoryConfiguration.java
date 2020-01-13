@@ -7,7 +7,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * Representing configuration data for {@link Factory}
+ * Representing configuration data for {@link Factory}. This object
+ * is serialized to *.yaml file.
  * @author Matej
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

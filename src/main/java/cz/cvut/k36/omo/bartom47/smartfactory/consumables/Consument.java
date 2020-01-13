@@ -61,6 +61,11 @@ public abstract class Consument<P extends HierarchyNode, C extends Consumable, K
         return new HashSet(unitConsumptionPerTick.keySet());
     }     
     
+    /**
+     * Public API for extracting consumables.
+     * @return collection of consumables
+     * @see #getChildren() 
+     */
     public Collection<Consumable> getConsumables(){
         return (Collection<Consumable>) getChildren();
     }

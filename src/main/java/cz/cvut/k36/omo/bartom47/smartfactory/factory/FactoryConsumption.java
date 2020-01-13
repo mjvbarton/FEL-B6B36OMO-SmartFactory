@@ -6,7 +6,8 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Representing consumption data for {@link Factory}
+ * Representing consumption data for {@link Factory}. This object
+ * is serialized to *.yaml file.
  * @author Matej
  */
 public class FactoryConsumption extends ConsumptionData<Factory>{
@@ -16,7 +17,7 @@ public class FactoryConsumption extends ConsumptionData<Factory>{
     }
     
     public String getName(){
-        return Factory.class.getSimpleName();
+        return getParent().getName();
     }
     
     public List<BuildingConsumption> getBuildings(){
@@ -25,7 +26,7 @@ public class FactoryConsumption extends ConsumptionData<Factory>{
                 .collect(Collectors.toList());
     }
     
-    public Double sumCost(){
+    public Double getSumCost(){
         return getBuildings().stream()
                 .mapToDouble(building -> building.getSumCost())
                 .sum();

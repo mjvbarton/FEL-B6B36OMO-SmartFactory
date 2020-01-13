@@ -12,7 +12,15 @@ import java.util.HashMap;
  */
 public abstract class RepairableWorker extends Worker{
 
-    public RepairableWorker(Assembly assembly, String name, HashMap<Consumable, Integer> unitConsumptionPerTick) {
+    /**
+     * Default constructor for repairable worker.
+     * @param assembly
+     * @param name
+     * @param unitConsumptionPerTick 
+     * @see Worker#Worker(Assembly, String, HashMap)
+     */
+    public RepairableWorker(Assembly assembly, String name, 
+            HashMap<Consumable, Integer> unitConsumptionPerTick) {
         super(assembly, name, unitConsumptionPerTick);
     }        
 

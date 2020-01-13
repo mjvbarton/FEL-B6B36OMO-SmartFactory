@@ -20,7 +20,7 @@ public class Factory extends HierarchyNode<Factory, Building, FactoryConfigurati
     private static Logger LOG = LoggerFactory.getLogger(Factory.class);    
     private final Set<Building> buildings;        
         
-    private Factory(String name) {
+    protected Factory(String name) {
         super(null, name, new FactoryConfiguration(), new FactoryConsumption());
         this.buildings = new HashSet();        
     }
@@ -36,9 +36,10 @@ public class Factory extends HierarchyNode<Factory, Building, FactoryConfigurati
                           
     /**
      * Generates {@link Tick} events at the whole factory.
+     * @return the generated tick event
      */
-    public void tick(){       
-        Tick.dispatch(this, this);
+    public Tick tick(){       
+        return Tick.dispatch(this, this);
     }
     
     public void addBuilding(Collection<Building> buildings){

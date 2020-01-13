@@ -4,12 +4,12 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import cz.cvut.k36.omo.bartom47.smartfactory.consumables.ConsumableConsumption;
 import cz.cvut.k36.omo.bartom47.smartfactory.core.ConsumptionData;
-import cz.cvut.k36.omo.bartom47.smartfactory.workers.Worker;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * Represents consumption data node for {@link Worker}
+ * Represents consumption data node for {@link Worker}. This object is serialized
+ * to {@code *.yaml} file.
  * @author Matej 
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

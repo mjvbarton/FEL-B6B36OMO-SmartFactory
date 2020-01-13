@@ -4,12 +4,10 @@ import cz.cvut.k36.omo.bartom47.smartfactory.core.HierarchyNode;
 import cz.cvut.k36.omo.bartom47.smartfactory.assembly.Assembly;
 import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Event;
 import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Tick;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.WorkplanRequest;
 import cz.cvut.k36.omo.bartom47.smartfactory.factory.Factory;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,12 +60,22 @@ public class Building extends HierarchyNode<Factory, Assembly, BuildingConfigura
               
     @Override
     public void handle(Event e) {
+        logEvent(e);
         if(e instanceof Tick){
-            LOG.debug(this + " handled event " + e);
-            logEvent(e);            
+            LOG.debug(this + " handled event " + e);            
             propagate((Tick) e);
+        } else if (e instanceof WorkplanRequest){
+            LOG.info(((Assembly) e.getSender()) + " has empty working plan.");            
+            
         } else {
-            LOG.warn("Unhandled event at " + this);
+            LOG.warn("Unhandled event " + e + " at " + this);
         }
-    }        
+    }    
+
+    @Override
+    public String toString() {
+        return "Building['" + getName() + "']";
+    }
+
+    
 }

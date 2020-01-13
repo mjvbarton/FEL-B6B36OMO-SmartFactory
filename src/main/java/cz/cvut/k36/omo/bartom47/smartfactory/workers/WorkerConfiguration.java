@@ -8,7 +8,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * Represents configuration data for {@link Worker}
+ * Represents configuration data for {@link Worker}. This object is serialized
+ * to {@code *.yaml} file.
  * @author Matej
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

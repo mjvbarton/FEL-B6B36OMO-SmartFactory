@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.cvut.k36.omo.bartom47.smartfactory.reports;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,13 +7,17 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator;
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator.Feature;
 
 /**
- *
+ * Configuration of the YAML file serializer. This class is {@code static}.
  * @author Matej
  */
 public class ReportConfiguration {
         
     private static ObjectMapper objectMapper;
     
+    /**
+     * Returns object mapper.
+     * @return configured object mapper
+     */
     public static synchronized ObjectMapper getObjectMapper(){
         if(objectMapper == null){
             objectMapper = new ObjectMapper(new YAMLFactory()

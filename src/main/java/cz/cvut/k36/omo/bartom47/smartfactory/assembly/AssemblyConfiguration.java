@@ -7,7 +7,8 @@ import java.util.Collection;
 import java.util.stream.Collectors;
 
 /**
- * Represents configuration data for {@link Assembly}.
+ * Represents configuration data for {@link Assembly}. This object
+ * is serialized to YAML.
  * @author Matej
  */
 public class AssemblyConfiguration extends ConfigurationData<Assembly>{
@@ -30,9 +31,18 @@ public class AssemblyConfiguration extends ConfigurationData<Assembly>{
                 .collect(Collectors.toList());
     }
     
-    @JsonIgnore //TODO: Remove this in version 1.0
+    public Integer getCountActiveWorkers(){
+        return getActiveWorkers().size();
+    }
+        
     public Collection<WorkerConfiguration> getNonActiveWorkers(){
-        throw new UnsupportedOperationException("Not implemented in version 1.0-BETA.");
+        return getParent().getNonActiveWorkers().stream()
+                .map(worker -> worker.getConfiguration())
+                .collect(Collectors.toList());
+    }
+    
+    public Integer getCountNonActiveWorkers(){
+        return getNonActiveWorkers().size();
     }
     
     @JsonIgnore //TODO: Remove this in version 1.0

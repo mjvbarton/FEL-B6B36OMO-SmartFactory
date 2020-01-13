@@ -11,6 +11,17 @@ import cz.cvut.k36.omo.bartom47.smartfactory.consumables.Consument;
  */
 public abstract class Material extends Consumable{
     
+    /**
+     * Creates new material.
+     * @param consument
+     * @param unitCost
+     * @param name
+     * @param unitName
+     * @param unitShortcutName
+     * @param costCurrencyShortcut
+     * @param unitsConsumedPerTick 
+     * @see Consumable#Consumable(Consument, String, double, String, String, String, Integer) 
+     */
     public Material(Consument consument, double unitCost, String name, 
             String unitName, String unitShortcutName, 
             String costCurrencyShortcut, Integer unitsConsumedPerTick) {

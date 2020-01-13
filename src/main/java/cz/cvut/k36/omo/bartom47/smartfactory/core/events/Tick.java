@@ -13,7 +13,7 @@ public class Tick extends PropagatableEvent{
     /**
      * Represents the count of created ticks. Used for generating {@code Tick.tickId}
      */
-    private static int tickCount = 0;
+    private static int tickCount = 0;        
         
     private final Integer tickId;
     
@@ -35,16 +35,14 @@ public class Tick extends PropagatableEvent{
      * Dispatches the Tick event at first reciever who handles it.
      * @param sender sender of the event
      * @param firstReciever first reciever to handle event
+     * @return the tick object for reference
      */
-    public static void dispatch(EventHandler sender, EventHandler firstReciever){
-        try{
-            tickCount++;
-            final Tick dispatched = new Tick(sender, tickCount);
-            LOG.info(dispatched.toString());
-            firstReciever.handle(dispatched);
-        } catch(RuntimeException e){
-            tickCount--;
-        }        
+    public static Tick dispatch(EventHandler sender, EventHandler firstReciever){      
+        tickCount++;
+        final Tick dispatched = new Tick(sender, tickCount);
+        LOG.info(dispatched.toString());
+        firstReciever.handle(dispatched);
+        return dispatched;
     }
 
     /**

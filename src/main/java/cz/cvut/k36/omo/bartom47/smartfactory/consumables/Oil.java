@@ -1,21 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.cvut.k36.omo.bartom47.smartfactory.consumables;
 
 /**
- *
+ * Represents oil consumed by consument.
  * @author Matej
  */
-//TODO: Singletonize
 public final class Oil extends Consumable{
     private static final double DEFAULT_UNIT_COST = 106.00;
     private static final String DEFAULT_UNIT_NAME = "liter";
     private static final String DEFAULT_UNIT_SHORTCUT = "l";
     private static final String DEFAULT_COST_CURRENCY = "CZK";
     
+    /**
+     * Creates new electricity consumable with class contstants.    
+     * @param consument
+     * @param unitsConsumedPerTick
+     * @see Consumable#Consumable(Consument, String, double, String, String,
+     * String, Integer)
+     */
     public Oil(Consument consument, Integer unitsConsumedPerTick) {
         super(
                 consument,                

@@ -23,7 +23,7 @@ public abstract class Worker extends
     
     protected final Assembly assembly;    
     private final Queue<Event> eventLog = new LinkedList();
-
+        
     /**
      * Creates new worker with default configuration and consumption.
      * @param assembly parent assembly

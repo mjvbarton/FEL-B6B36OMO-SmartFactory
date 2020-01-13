@@ -25,7 +25,7 @@ public class AssemblyConsumption extends ConsumptionData<Assembly>{
     }
     
     public List<WorkerConsumption> getWorkers(){
-        return getParent().getChildren().stream()
+        return getParent().getAllWorkers().stream()
                 .map(worker -> worker.getConsumption())                
                 .collect(Collectors.toList());
     }

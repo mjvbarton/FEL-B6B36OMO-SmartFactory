@@ -1,5 +1,6 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.assembly;
 
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Event;
 import cz.cvut.k36.omo.bartom47.smartfactory.production.Series;
 import java.util.Queue;
 
@@ -20,9 +21,10 @@ abstract class AssemblyState{
     
     /**
      * Returns the next state of assembly state machine
+     * @param e event passed from the assembly
      * @return the next state
      */
-    abstract AssemblyState next();
+    abstract AssemblyState next(Event e);
 
     /**
      * Returns the working plan of the state.

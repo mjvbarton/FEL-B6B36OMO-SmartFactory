@@ -1,6 +1,7 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.production;
 
 import cz.cvut.k36.omo.bartom47.smartfactory.core.ConfigurationDataContainer;
+import cz.cvut.k36.omo.bartom47.smartfactory.core.events.Event;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -26,9 +27,7 @@ public class Series<P extends Product> implements ConfigurationDataContainer<Ser
         this.product = product;
         this.countProducts = countProducts;
         toProduce = countProducts;
-    }
-    
-    
+    }       
     
     /**
      * Checks if the serie has more products to produce.
@@ -47,6 +46,15 @@ public class Series<P extends Product> implements ConfigurationDataContainer<Ser
         LOG.debug("Number of 'toProduce' updated to " + toProduce);
     }
 
+    /**
+     * Gets the product stored at the serie.
+     * @return 
+     */
+    public P getProduct() {
+        return product;
+    }
+        
+
     /**    
      * @since 1.0-BETA Not supported - throws {@link UnsupportedOperationException}.
      */
@@ -54,4 +62,8 @@ public class Series<P extends Product> implements ConfigurationDataContainer<Ser
     public SeriesConfiguration getConfiguration() {
         throw new UnsupportedOperationException("Not implemented in version 1.0-BETA.");
     }        
+
+    public Series next(Event e) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
