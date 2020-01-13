@@ -42,7 +42,7 @@ public abstract class HierarchyNode<P extends HierarchyNode, C extends Hierarchy
      * @param parent parent node
      * @param name unique name of the node
      * @param configuration configuration data for the node, <i>Notice: Acts as a view!</i>
-     * @param consumption 
+     * @param consumption consumption data for the node, <i>Notice: Acts as a view!</i>
      * @since 1.0-BETA configuration acts as a view only
      */
     protected HierarchyNode(P parent, String name, K configuration, T consumption) {
@@ -79,7 +79,7 @@ public abstract class HierarchyNode<P extends HierarchyNode, C extends Hierarchy
     
     /**
      * Checks if this node has parent node.
-     * @return {@true} if the parent node is present otherwise {@code false}
+     * @return {@code true} if the parent node is present otherwise {@code false}
      */
     protected boolean hasParent(){
         return !(parent == null);

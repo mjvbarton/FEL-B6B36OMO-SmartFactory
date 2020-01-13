@@ -9,8 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represent the state when assembly finishes producing of {@link Serie} and
- * accepts new {@link Serie}
+ * Represent the state when assembly finishes producing of {@link Series} and
+ * accepts new {@link Series}
  * @author Matej
  */
 class IsChangingSeries extends AssemblyState{

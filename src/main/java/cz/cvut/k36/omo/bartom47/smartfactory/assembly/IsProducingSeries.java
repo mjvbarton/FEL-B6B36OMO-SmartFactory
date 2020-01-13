@@ -8,7 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * Represent the state when assembly is producing single {@link Serie}
+ * Represent the state when assembly is producing single {@link Series}
  * @author Matej
  */
 class IsProducingSeries extends AssemblyState{

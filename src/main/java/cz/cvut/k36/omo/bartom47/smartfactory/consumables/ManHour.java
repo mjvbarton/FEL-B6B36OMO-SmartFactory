@@ -1,5 +1,7 @@
 package cz.cvut.k36.omo.bartom47.smartfactory.consumables;
 
+import cz.cvut.k36.omo.bartom47.smartfactory.workers.PersonWorker;
+
 /**
  * Represented worked hours of {@link PersonWorker}
  * @author Matej

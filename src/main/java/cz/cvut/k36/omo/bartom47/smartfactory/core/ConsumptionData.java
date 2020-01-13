@@ -16,7 +16,6 @@ public abstract class ConsumptionData<E extends ConsumptionDataContainer> implem
     /**
      * Creates configuration data with parent node
      * 
-     * @param parentNode
      */
     public ConsumptionData() {
     }

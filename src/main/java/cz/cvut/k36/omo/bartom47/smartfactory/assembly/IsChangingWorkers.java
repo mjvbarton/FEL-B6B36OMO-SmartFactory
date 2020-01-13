@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 
 /**
  * Represent the state when assembly changes sequence of workers which
- * is caused by {@link Serie} series with different products.
+ * is caused by {@link Series} series with different products.
  * @author Matej
  * @since 1.0-BETA not used at all
  */

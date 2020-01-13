@@ -97,7 +97,7 @@ public class Assembly extends HierarchyNode<Building, Worker, AssemblyConfigurat
     /**
      * Gets the priority of the assembly.
      * @since 1.0-BETA not used
-     * @return
+     * @return returns the priority
      */
     public int getPriority() {
         return priority;
@@ -106,7 +106,7 @@ public class Assembly extends HierarchyNode<Building, Worker, AssemblyConfigurat
     /**
      * Sets the priority of the assembly
      * @since 1.0-BETA not used
-     * @param priority
+     * @param priority priority of the assembly
      */
     public synchronized void setPriority(int priority) {
         this.priority = priority;

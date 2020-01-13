@@ -69,7 +69,7 @@ public class CollaborativeRobot extends RepairableWorker {
      * {@link #createCounter}
      * @param assembly parent assembly node
      * @return new instance
-     * @see #CollaborativeRobot(Assembly, String) 
+     * @see #create(Assembly, String) 
      */
     public static CollaborativeRobot create(Assembly assembly){
         createCounter++;

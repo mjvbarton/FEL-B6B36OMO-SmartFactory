@@ -8,13 +8,13 @@ public interface EventHandler {
     
     /**
      * Handles the event
-     * @param e 
+     * @param e handled event
      */
     void handle(Event e);
     
     /**
      * Saves the event to the local log.
-     * @param e 
+     * @param e handled event
      */
     void logEvent(Event e);
 }

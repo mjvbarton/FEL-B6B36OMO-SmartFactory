@@ -1,0 +1,14 @@
+cz.cvut.k36.omo.bartom47.smartfactory
+cz.cvut.k36.omo.bartom47.smartfactory.assembly
+cz.cvut.k36.omo.bartom47.smartfactory.buildings
+cz.cvut.k36.omo.bartom47.smartfactory.consumables
+cz.cvut.k36.omo.bartom47.smartfactory.consumables.materials
+cz.cvut.k36.omo.bartom47.smartfactory.core
+cz.cvut.k36.omo.bartom47.smartfactory.core.events
+cz.cvut.k36.omo.bartom47.smartfactory.core.exceptions
+cz.cvut.k36.omo.bartom47.smartfactory.factory
+cz.cvut.k36.omo.bartom47.smartfactory.production
+cz.cvut.k36.omo.bartom47.smartfactory.reports
+cz.cvut.k36.omo.bartom47.smartfactory.sampledata.meac
+cz.cvut.k36.omo.bartom47.smartfactory.sampledata.skodaauto
+cz.cvut.k36.omo.bartom47.smartfactory.workers
